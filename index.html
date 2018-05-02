@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Examples</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div id="app" class="page-wrapper">
+            <header>
+
+            </header>
+            <main>
+                <div class="container">
+                    <h1>Flexbox</h1>
+                    <p>
+                        Flex layout is similar to block layout. It lacks many of the more complex text- or document-centric properties that can be used in block layout, such as floats and columns. In return it gains simple and powerful tools for distributing space and aligning content in ways that web apps and complex web pages often need.
+                    </p>
+                    <div class="">
+                        <img class="img-responsive" src="../images/flexbox.png" alt="">
+                    </div>
+                    <section class="section">
+                        <h2>Flex Property Practice</h2>
+                        <div class="flexible-box-container" v-bind:style="{'justify-content': justifyContent, 'align-items': alignItems, 'flex-direction': flexDirection, 'flex-wrap': flexWrap, width: containerWidth, height: containerHeight}">
+                            <div v-for="box in boxes" class="flexible-box" v-bind:style="{'flex-grow': box.grow, 'flex-shrink': box.shrink, 'flex-basis': box.basis, 'align-self': box.alignSelf, 'order': box.order}">
+                                {{box.name}}
+                            </div>
+                        </div>
+                        <div class="">
+                            <button v-on:click="createNewFlexItem()" class="button" type="button" name="button">Add Flex Item</button>
+                            <button v-on:click="removeLastFlexItem()" class="button button--secondary" type="button" name="button">Remove Flex Item</button>
+                        </div>
+                        <div class="form-wrapper">
+                            <div class="form-group-wrapper">
+                                <h3>Flex Container Properties</h3>
+                                <div class="form-group">
+                                    <label for="container-width">Flex Container Width</label>
+                                    <input v-model="containerWidth" id="container-width" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="container-height">Flex Container Height</label>
+                                    <input v-model="containerHeight" id="container-height" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="button" type="button" v-on:click="resetFlexContainer();">Reset Defaults</button>
+                        </div>
+
+                        <div class="form-wrapper">
+                            <div class="form-group-wrapper">
+                                <h3>flex-direction</h3>
+                                <div class="form-group">
+                                    <label for="flex-row">row</label>
+                                    <input v-model="flexDirection" id="flex-row" type="radio" name="flex-direction" value="row">
+                                </div>
+                                <div class="form-group">
+                                    <label for="flex-row-reverse">row-reverse</label>
+                                    <input v-model="flexDirection" id="flex-row-reverse" type="radio" name="flex-direction" value="row-reverse">
+                                </div>
+                                <div class="form-group">
+                                    <label for="flex-column">column</label>
+                                    <input v-model="flexDirection" id="flex-column" type="radio" name="flex-direction" value="column">
+                                </div>
+                                <div class="form-group">
+                                    <label for="flex-column-reverse">column-reverse</label>
+                                    <input v-model="flexDirection" id="flex-column-reverse" type="radio" name="flex-direction" value="column-reverse">
+                                </div>
+                            </div>
+                            <div class="form-group-wrapper">
+                                <h3>flex-wrap</h3>
+                                <div class="form-group">
+                                    <label for="nowrap">nowrap</label>
+                                    <input v-model="flexWrap" id="nowrap" type="radio" name="flex-wrap" value="nowrap">
+                                </div>
+                                <div class="form-group">
+                                    <label for="wrap">wrap</label>
+                                    <input v-model="flexWrap" id="wrap" type="radio" name="flex-wrap" value="wrap">
+                                </div>
+                                <div class="form-group">
+                                    <label for="wrap-reverse">wrap-reverse</label>
+                                    <input v-model="flexWrap" id="wrap-reverse" type="radio" name="flex-wrap" value="wrap-reverse">
+                                </div>
+                            </div>
+                            <div class="form-group-wrapper">
+                                <h3>justify-content</h3>
+                                <div class="form-group">
+                                    <label for="flex-start">flex-start</label>
+                                    <input v-model="justifyContent" id="flex-start" type="radio" name="justify-content" value="flex-start">
+                                </div>
+                                <div class="form-group">
+                                    <label for="flex-end">flex-end</label>
+                                    <input v-model="justifyContent" id="flex-end" type="radio" name="justify-content" value="flex-end">
+                                </div>
+                                <div class="form-group">
+                                    <label for="center">center</label>
+                                    <input v-model="justifyContent" id="center" type="radio" name="justify-content" value="center">
+                                </div>
+                                <div class="form-group">
+                                    <label for="space-between">space-between</label>
+                                    <input v-model="justifyContent" id="space-between" type="radio" name="justify-content" value="space-between">
+                                </div>
+                                <div class="form-group">
+                                    <label for="space-around">space-around</label>
+                                    <input v-model="justifyContent" id="space-around" type="radio" name="justify-content" value="space-around">
+                                </div>
+                                <div class="form-group">
+                                    <label for="space-evenly">space-evenly</label>
+                                    <input v-model="justifyContent" id="space-evenly" type="radio" name="justify-content" value="space-evenly">
+                                </div>
+                            </div>
+
+                            <div class="form-group-wrapper">
+                                <h3>align-items</h3>
+                                <div class="form-group">
+                                    <label for="align-stretch">stretch</label>
+                                    <input v-model="alignItems" id="align-stretch" type="radio" name="align-items" value="stretch">
+                                </div>
+                                <div class="form-group">
+                                    <label for="align-flex-start">flex-start</label>
+                                    <input v-model="alignItems" id="align-flex-start" type="radio" name="align-items" value="flex-start">
+                                </div>
+                                <div class="form-group">
+                                    <label for="align-flex-end">flex-end</label>
+                                    <input v-model="alignItems" id="align-flex-end" type="radio" name="align-items" value="flex-end">
+                                </div>
+                                <div class="form-group">
+                                    <label for="align-center">center</label>
+                                    <input v-model="alignItems" id="align-center" type="radio" name="align-items" value="center">
+                                </div>
+                                <div class="form-group">
+                                    <label for="align-baseline">baseline</label>
+                                    <input v-model="alignItems" id="align-baseline" type="radio" name="align-items" value="baseline">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button class="button" type="button" v-on:click="resetFlexContainerFlexProperties();">Reset Defaults</button>
+                        </div>
+
+                        <div class="form-wrapper">
+                            <div class="form-group-wrapper" v-for="(box, index) in boxes">
+                                <h3>{{box.name}}</h3>
+                                <div class="form-group">
+                                    <label v-bind:for="index + '--flex-grow'">flex-grow</label>
+                                    <input v-model="box.grow" v-bind:id="index + '--flex-grow'" type="number">
+                                </div>
+                                <div class="form-group">
+                                    <label v-bind:for="index + '--flex-shrink'">flex-shrink</label>
+                                    <input v-model="box.shrink" v-bind:id="index + '--flex-shrink'" type="number" name="">
+                                </div>
+                                <div class="form-group">
+                                    <label v-bind:for="index + '--flex-basis'">flex-basis</label>
+                                    <input v-model="box.basis" v-bind:id="index + '--flex-basis'" type="text" name="">
+                                </div>
+                                <div class="form-group">
+                                    <label v-bind:for="index + '--flex-order'">flex-order</label>
+                                    <input v-model="box.order" v-bind:id="index + '--flex-order'" type="text" name="">
+                                </div>
+                                <div>
+                                    <h4>align-self</h4>
+                                    <div class="form-group">
+                                        <label v-bind:for="index + '--align-auto'">auto</label>
+                                        <input v-model="box.alignSelf" v-bind:id="index + '--align-auto'" type="radio" v-bind:name="index + '--align'" value="auto">
+                                    </div>
+                                    <div class="form-group">
+                                        <label v-bind:for="index + '--align-flex-start'">flex-start</label>
+                                        <input v-model="box.alignSelf" v-bind:id="index + '--align-flex-start'" type="radio" v-bind:name="index + '--align'" value="flex-start">
+                                    </div>
+                                    <div class="form-group">
+                                        <label v-bind:for="index + '--align-flex-end'">flex-end</label>
+                                        <input v-model="box.alignSelf" v-bind:id="index + '--align-flex-end'" type="radio" v-bind:name="index + '--align'" value="flex-end">
+                                    </div>
+                                    <div class="form-group">
+                                        <label v-bind:for="index + '--align-center'">center</label>
+                                        <input v-model="box.alignSelf" v-bind:id="index + '--align-center'" type="radio" v-bind:name="index + '--align'" value="center">
+                                    </div>
+                                    <div class="form-group">
+                                        <label v-bind:for="index + '--align-baseline'">baseline</label>
+                                        <input v-model="box.alignSelf" v-bind:id="index + '--align-baseline'" type="radio" v-bind:name="index + '--align'" value="baseline">
+                                    </div>
+                                    <div class="form-group">
+                                        <label v-bind:for="index + '--align-stretch'">stretch</label>
+                                        <input v-model="box.alignSelf" v-bind:id="index + '--align-stretch'" type="radio" v-bind:name="index + '--align'" value="stretch">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="button" type="button" v-on:click="resetFlexItems();">Reset Defaults</button>
+                        </div>
+                        <div class="actions">
+                            <button class="button button--secondary" type="button" v-on:click="resetAll();">Reset All Defaults</button>
+                        </div>
+                    </section>
+
+                    <section class="section">
+                        <h2>Layouts with Flexbox</h2>
+
+                        <div class="layout-wrapper">
+                            <div class="flex-grid">
+                                <h3>E-conolight Example</h3>
+                                <div class="flex-row">
+                                    <div class="flex-col flex-col--3-4 flex-col--sm-whole">
+                                        <div class="flex-row flex-row--no-margin-bottom">
+                                            <div class="flex-col flex-col--whole">
+                                                <div class="flex-content-placeholder">
+                                                    Content
+                                                </div>
+                                            </div>
+                                            <div class="flex-col flex-col--1-3 flex-col--xs-half">
+                                                <div class="flex-content-placeholder">
+                                                    Content
+                                                </div>
+                                            </div>
+                                            <div class="flex-col flex-col--1-3 flex-col--xs-half">
+                                                <div class="flex-content-placeholder">
+                                                    Content
+                                                </div>
+                                            </div>
+                                            <div class="flex-col flex-col--1-3 flex-col--xs-half">
+                                                <div class="flex-content-placeholder">
+                                                    Content
+                                                </div>
+                                            </div>
+                                            <div class="flex-col flex-col--1-3 flex-col--xs-half">
+                                                <div class="flex-content-placeholder">
+                                                    Content
+                                                </div>
+                                            </div>
+                                            <div class="flex-col flex-col--1-3 flex-col--xs-half">
+                                                <div class="flex-content-placeholder">
+                                                    Content
+                                                </div>
+                                            </div>
+                                            <div class="flex-col flex-col--1-3 flex-col--xs-half">
+                                                <div class="flex-content-placeholder">
+                                                    Content
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-col flex-col--1-4 flex-col--sm-whole">
+                                        <div class="flex-content-placeholder">
+                                            Content
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layout-wrapper">
+                            <div class="flex-grid">
+                                <h3>Glen Lennox Example</h3>
+                                <div class="flex-row">
+                                    <div class="flex-col flex-col--2-3 flex-col--xs-whole">
+                                        <div class="flex-content-placeholder">
+                                            Content
+                                        </div>
+                                    </div>
+                                    <div class="flex-col flex-col--1-3 flex-col--xs-whole">
+                                        <div class="flex-row flex-row--no-margin-bottom">
+                                            <div class="flex-col flex-col--whole">
+                                                <div class="flex-content-placeholder">
+                                                    Content
+                                                </div>
+                                            </div>
+                                            <div class="flex-col flex-col--whole">
+                                                <div class="flex-content-placeholder">
+                                                    Content
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-row">
+                                    <div class="flex-col flex-col--1-3 flex-col--xs-whole">
+                                        <div class="flex-content-placeholder">
+                                            Content
+                                        </div>
+                                    </div>
+                                    <div class="flex-col flex-col--1-3 flex-col--xs-whole">
+                                        <div class="flex-content-placeholder">
+                                            Content
+                                        </div>
+                                    </div>
+                                    <div class="flex-col flex-col--1-3 flex-col--xs-whole">
+                                        <div class="flex-content-placeholder">
+                                            Content
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section">
+                        <h2>Layouts With Grid</h2>
+                        <div class="layout-wrapper">
+                            <h3>E-conolight Example</h3>
+                            <div class="grid grid--one">
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layout-wrapper">
+                            <h3>Glen Lennox Example</h3>
+                            <div class="grid grid--two">
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                                <div class="grid-content-placeholder">
+                                    Content
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layout-wrapper">
+                            <h3>Holy Grail Layout</h3>
+                            <div class="grid grid--holy-grail">
+                                <div class="grail-header">
+                                    Header
+                                </div>
+                                <div class="grail-sidebar">
+                                    Sidebaar
+                                </div>
+                                <div class="grail-main">
+                                    Main Content
+                                </div>
+                                <div class="grail-aside">
+                                    Aside
+                                </div>
+                                <div class="grail-footer">
+                                    Footer
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+                </div>
+                <section class="section">
+
+                    <div class="layout-wrapper">
+                        <h3>Glen Lennox Homepage Grid(With Flexbox)</h3>
+                        <div class="flex flex--one">
+                            <div class="side-1">
+                                <div class="placeholder placeholder--1">
+
+                                </div>
+                                <div class="placeholder placeholder--5">
+
+                                </div>
+                            </div>
+                            <div class="side-2">
+                                <div class="placeholder placeholder--2">
+
+                                </div>
+                                <div class="side-2__bottom">
+                                    <div class="side-2__column-1">
+                                        <div class="placeholder placeholder--3">
+
+                                        </div>
+                                        <div class="placeholder placeholder--6">
+
+                                        </div>
+                                    </div>
+                                    <div class="side-2__column-2">
+                                        <div class="placeholder placeholder--4">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layout-wrapper">
+                        <h3>Glen Lennox Homepage Grid</h3>
+                        <div class="grid grid--three">
+                            <div class="grid-content-placeholder">
+
+                            </div>
+                            <div class="grid-content-placeholder">
+
+                            </div>
+                            <div class="grid-content-placeholder">
+
+                            </div>
+                            <div class="grid-content-placeholder">
+
+                            </div>
+                            <div class="grid-content-placeholder">
+
+                            </div>
+                            <div class="grid-content-placeholder">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+            </main>
+            <footer>
+
+            </footer>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
